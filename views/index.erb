@@ -1,0 +1,33 @@
+<h1>Team Randomizer</h1>
+<form action="/" method="post">
+  <h3>Names</h3>
+  <textarea style="color: blue; background-color: #e2e4d7; font-size:120%" rows="3" cols="50" name="name_list"><%= params[:name_list] %></textarea>
+  <br><br>
+  <h3>Method</h3>
+  <input type="radio" name="method" value="count" <% if params[:method] == "count" %> checked <% end %> > Team Count
+  <input type="radio" name="method" value="number" <% if params[:method] == "number" %> checked <% end %> > Number Per Team
+  <br><br>
+  <h3>Number</h3>
+  <textarea style="color: blue; background-color: #e2e4d7; font-size:120%" rows="1" cols="50" name="number"><%= params[:number] %></textarea>
+  <br><br>
+  <input type="submit" value="Submit">
+</form>
+
+
+  <ol>
+    <% unless session[:res].nil? %>
+      <% if session[:array].length < params[:number].to_i %>
+        <p style="color:red">Error: number of teams exceeds the number of members</p>
+      <% else %>
+        <% for i in 0...session[:res].length %>
+          <% unless session[:res][i].empty? %>
+            <p> Team <%= i+1 %>.&nbsp;&nbsp;
+              <% for name in session[:res][i] %>
+                <%= name%>&nbsp;
+              <% end %>
+             <% end %>
+          </p>
+        <% end %>
+      <% end %>
+    <% end %>
+  </ol>
